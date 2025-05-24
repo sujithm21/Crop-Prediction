@@ -1,0 +1,68 @@
+body {
+    background: url("/static/1.jpeg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin-top: 50px;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    perspective: 1000px; /* Enable 3D perspective */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: mediumseagreen;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+}
+
+.btn-primary {
+    background-color: mediumseagreen;
+    border-color: mediumseagreen;
+    transition: transform 0.3s, box-shadow 0.3s; /* Add transition for 3D effect */
+}
+
+.btn-primary:hover {
+    background-color: #3b9e3b;
+    border-color: #3b9e3b;
+    transform: translateY(-5px) scale(1.05); /* Lift button on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
+}
+
+.result-card {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.result-card .card {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    transform: rotateY(10deg); /* Slight 3D rotation */
+    transition: transform 0.3s; /* Smooth transition for rotation */
+}
+
+.result-card .card:hover {
+    transform: rotateY(0deg) scale(1.05); /* Reset rotation and scale on hover */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: mediumseagreen;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+/* 3D input fields */
+.form-control {
+    transition: transform 0.3s, box-shadow 0.3s; /* Add transition for 3D effect */
+}
+
+.form-control:focus {
+    transform: translateZ(5px); /* Lift input field on focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on focus */
+}

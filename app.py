@@ -1,12 +1,11 @@
 from flask import Flask, request, render_template
 import numpy as np
-import pandas as pd
 import pickle
 
 # Load the trained model
 model = pickle.load(open('models/XGBoost.pkl', 'rb'))
 
-# Define the crop dictionary
+# Crop indices mapping
 crop_indices = {
     "Soyabeans": 0,
     "Apple": 1,
@@ -25,7 +24,7 @@ crop_indices = {
     "Watermelon": 14
 }
 
-# Create Flask app
+# Flask app
 app = Flask(__name__)
 
 @app.route('/')
@@ -34,25 +33,24 @@ def index():
 
 @app.route("/predict", methods=['POST'])
 def predict():
-    # Collect input values from the form
+    # Get form inputs
     N = int(request.form.get('Nitrogen', 0))
-    P = int(request.form.get('Phosporus', 0))
+    P = int(request.form.get('Phosphorus', 0))  # fixed typo
     K = int(request.form.get('Potassium', 0))
     ph = float(request.form.get('pH', 0.0))
     rainfall = float(request.form.get('Rainfall', 0.0))
     temperature = float(request.form.get('Temperature', 0.0))
     humidity = float(request.form.get('Humidity', 0.0))
 
-    # Create feature vector
+    # Prepare features for prediction
     data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
 
-    # Make prediction using the model
+    # Predict
     prediction_index = model.predict(data)[0]
 
-    # Get the corresponding crop name from the dictionary
-    predicted_crop = next((crop for crop, index in crop_indices.items() if index == prediction_index), "Unknown")
+    # Reverse lookup the crop name
+    predicted_crop = next((crop for crop, idx in crop_indices.items() if idx == prediction_index), "Unknown")
 
-    # Return the predicted crop name to the template
     return render_template('index.html', result=predicted_crop)
 
 if __name__ == "__main__":
